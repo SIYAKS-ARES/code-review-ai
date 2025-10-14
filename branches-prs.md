@@ -79,3 +79,86 @@ main branch korumalı olmalı: PR incelemesi, test geçişi ve en az 1 onay gere
 
 Sonuç:
 Bu yapı sayesinde her ekip üyesi, kendi alanındaki branch üzerinde izole biçimde çalışabilir. PR süreci, değişikliklerin güvenli, izlenebilir ve düzenli şekilde main branch’e aktarılmasını sağlar.
+
+
+---
+
+### 🛠️ 1. `backend-api`
+
+```bash
+git checkout backend-api
+git pull origin backend-api           # En güncel hali al
+git checkout -b feature/api-login     # Yeni feature branch oluştur
+
+# → Backend kodlarını geliştir (örneğin: auth sistemi, endpoint vs.)
+# → Geliştirmeleri commit et
+git push -u origin feature/api-login  # Remote’a gönder
+
+# → GitHub'da PR açarken hedef (base) branch: backend-api
+```
+
+---
+
+### 🧠 2. `ai-evaluation`
+
+```bash
+git checkout ai-evaluation
+git pull origin ai-evaluation
+git checkout -b eval/prompt-tuning
+
+# → LLM testleri, prompt denemeleri, model çıktısı analizi yap
+# → Scriptleri/analiz dosyalarını ekle ve commit et
+git push -u origin eval/prompt-tuning
+
+# → PR base: ai-evaluation
+```
+
+---
+
+### 💻 3. `frontend-ui`
+
+```bash
+git checkout frontend-ui
+git pull origin frontend-ui
+git checkout -b ui/pr-compare-component
+
+# → React/Next.js ile UI geliştirmesi yap
+# → Arayüz bileşeni ekle, test et, commit et
+git push -u origin ui/pr-compare-component
+
+# → PR base: frontend-ui
+```
+
+---
+
+### 🔄 4. `data-pipeline`
+
+```bash
+git checkout data-pipeline
+git pull origin data-pipeline
+git checkout -b data/github-pr-cleaning
+
+# → Veri toplama, temizleme, ETL işlemleri yap
+# → Kodları commit et
+git push -u origin data/github-pr-cleaning
+
+# → PR base: data-pipeline
+```
+
+---
+
+### 📚 5. `docs-research`
+
+```bash
+git checkout docs-research
+git pull origin docs-research
+git checkout -b docs/llm-comparison-report
+
+# → Makale taslağı, deney raporu veya literatür özeti yaz
+# → Dosyaları ekle, commit et
+git push -u origin docs/llm-comparison-report
+
+# → PR base: docs-research
+```
+
+---
