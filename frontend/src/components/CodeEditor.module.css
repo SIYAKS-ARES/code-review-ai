@@ -1,0 +1,69 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.helper {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.editorWrapper {
+  position: relative;
+  border: 2px solid #d1d5db;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.editorWrapper:focus-within {
+  border-color: #3b82f6;
+}
+
+.codeArea {
+  width: 100%;
+  min-height: 300px;
+  padding: 1rem;
+  border: none;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  resize: vertical;
+  background-color: #f9fafb;
+  color: #1f2937;
+  box-sizing: border-box;
+  tab-size: 4;
+}
+
+.codeArea:focus {
+  outline: none;
+  background-color: #ffffff;
+}
+
+.codeArea.error {
+  background-color: #fef2f2;
+}
+
+.errorMessage {
+  font-size: 0.85rem;
+  color: #ef4444;
+  margin-top: -0.25rem;
+}
+
+/* Language-specific styling hints */
+.codeArea[data-language="python"] {
+  tab-size: 4;
+}
+
+.codeArea[data-language="java"],
+.codeArea[data-language="cpp"] {
+  tab-size: 2;
+}
