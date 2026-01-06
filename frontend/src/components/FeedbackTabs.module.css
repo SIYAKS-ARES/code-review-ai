@@ -12,7 +12,6 @@
 }
 
 .suggestions {
-  margin: 0;
   padding: 1.5rem;
   background-color: #eff6ff;
   color: #1e40af;
@@ -20,8 +19,44 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 0.95rem;
   line-height: 1.8;
-  white-space: pre-wrap;
   border-left: 4px solid #3b82f6;
+}
+
+.suggestions ul,
+.suggestions ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.suggestions li {
+  margin: 0.5rem 0;
+}
+
+.suggestions p {
+  margin: 0.75rem 0;
+}
+
+.suggestions code {
+  background-color: #dbeafe;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.suggestions pre {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.suggestions pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
 }
 
 /* Karşılaştırma Modu */
@@ -133,6 +168,47 @@
   border-left: 4px solid #3b82f6;
 }
 
+/* Runtime Section */
+.runtimeSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.runtimeCard {
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 0.75rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.runtimeLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.runtimeValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  font-family: 'Monaco', 'Courier New', monospace;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.optimalValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fbbf24;
+  font-family: 'Monaco', 'Courier New', monospace;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .codeBlock {
   margin: 0;
   padding: 1.5rem;
@@ -179,7 +255,6 @@
 }
 
 .guidance {
-  margin: 0;
   padding: 1.5rem;
   background-color: #fef3c7;
   color: #92400e;
@@ -187,8 +262,49 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 0.95rem;
   line-height: 1.8;
-  white-space: pre-wrap;
   border-left: 4px solid #f59e0b;
+}
+
+.guidance ul,
+.guidance ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.guidance li {
+  margin: 0.5rem 0;
+}
+
+.guidance p {
+  margin: 0.75rem 0;
+}
+
+.guidance strong {
+  font-weight: 700;
+  color: #78350f;
+}
+
+.guidance code {
+  background-color: #fde68a;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.guidance pre {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.guidance pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
 }
 
 /* Responsive */
@@ -216,6 +332,15 @@
 
   .modelList {
     padding: 1rem;
+  }
+
+  .runtimeSection {
+    grid-template-columns: 1fr;
+  }
+
+  .runtimeValue,
+  .optimalValue {
+    font-size: 1.5rem;
   }
 
   .scoreValue {

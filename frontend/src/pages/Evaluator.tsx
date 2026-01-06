@@ -5,8 +5,8 @@ import { LanguageSelect } from '../components/LanguageSelect';
 import { ModelSelector } from '../components/ModelSelector';
 import { FeedbackTabs } from '../components/FeedbackTabs';
 import { HistoryPanel } from '../components/HistoryPanel';
-import { evaluateCode, ApiError } from '../api/client';
-import { Language, EvaluationResponse, HistoryItem, EvaluationMode, ModelId } from '../types';
+import { evaluateCode, getAvailableModels, ApiError } from '../api/client';
+import { Language, EvaluationResponse, HistoryItem, EvaluationMode, ModelInfo } from '../types';
 import { saveToHistory, getHistory, saveLastInput, getLastInput, clearHistory } from '../utils/storage';
 import styles from './Evaluator.module.css';
 
@@ -81,7 +81,8 @@ export const Evaluator: React.FC = () => {
   const [code, setCode] = useState('');
   const [language, setLanguage] = useState<Language>('python');
   const [evaluationMode, setEvaluationMode] = useState<EvaluationMode>('compare');
-  const [selectedModels, setSelectedModels] = useState<ModelId[]>(['gpt-4o', 'gemini-1.5-pro', 'claude-3.5-sonnet']);
+  const [selectedModels, setSelectedModels] = useState<string[]>([]);
+  const [availableModels, setAvailableModels] = useState<ModelInfo[]>([]);
   const [result, setResult] = useState<EvaluationResponse | null>(null);
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -91,6 +92,32 @@ export const Evaluator: React.FC = () => {
     code: '',
     models: '',
   });
+
+  // Load available models on mount
+  useEffect(() => {
+    const loadModels = async () => {
+      try {
+        const models = await getAvailableModels();
+        setAvailableModels(models);
+        
+        // Set default selected models
+        const activeModels = models.filter(m => m.available);
+        if (activeModels.length >= 3) {
+          setSelectedModels(activeModels.slice(0, 3).map(m => m.id));
+        } else if (activeModels.length >= 2) {
+          setSelectedModels(activeModels.slice(0, 2).map(m => m.id));
+        } else if (activeModels.length > 0) {
+          setSelectedModels([activeModels[0].id]);
+          setEvaluationMode('single');
+        }
+      } catch (err) {
+        console.error('Model yüklenemedi:', err);
+        setError('Backend sunucusuna bağlanılamadı. Lütfen backend\'in çalıştığından emin olun.');
+      }
+    };
+    
+    loadModels();
+  }, []);
 
   // Load last input and history on mount
   useEffect(() => {
@@ -116,11 +143,14 @@ export const Evaluator: React.FC = () => {
     
     // Reset model selection based on mode
     if (mode === 'single') {
-      setSelectedModels([selectedModels[0] || 'gpt-4o']);
+      const firstActive = availableModels.find(m => m.available);
+      setSelectedModels(firstActive ? [firstActive.id] : []);
     } else {
       // For compare mode, ensure at least 2 models are selected
       if (selectedModels.length < 2) {
-        setSelectedModels(['gpt-4o', 'gemini-1.5-pro']);
+        const activeModels = availableModels.filter(m => m.available);
+        const defaultSelection = activeModels.slice(0, Math.min(2, activeModels.length)).map(m => m.id);
+        setSelectedModels(defaultSelection);
       }
     }
     
@@ -228,7 +258,7 @@ export const Evaluator: React.FC = () => {
     setCode(item.code);
     setLanguage(item.language);
     setEvaluationMode(item.mode);
-    setSelectedModels(item.models as ModelId[]);
+    setSelectedModels(item.models);
     setResult(item.result);
     setError(null);
     setValidationErrors({ problem: '', code: '', models: '' });
@@ -269,6 +299,7 @@ export const Evaluator: React.FC = () => {
             <ModelSelector
               mode={evaluationMode}
               selectedModels={selectedModels}
+              availableModels={availableModels}
               onModeChange={handleModeChange}
               onModelsChange={setSelectedModels}
             />

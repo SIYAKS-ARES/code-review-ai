@@ -1,5 +1,5 @@
 import React from 'react';
-import { HistoryItem, AVAILABLE_MODELS, SingleModeResponse } from '../types';
+import { HistoryItem, SingleModeResponse } from '../types';
 import { formatDateTime, getLanguageLabel, truncateText } from '../utils/helpers';
 import styles from './HistoryPanel.module.css';
 
@@ -15,8 +15,13 @@ export const HistoryPanel: React.FC<HistoryPanelProps> = ({
   onClearHistory,
 }) => {
   const getModelLabel = (modelId: string): string => {
-    const model = AVAILABLE_MODELS.find((m) => m.id === modelId);
-    return model ? model.label.split(' ')[0] : modelId;
+    // Model ID'den kısa isim çıkar
+    const modelNames: Record<string, string> = {
+      'gpt-4o': 'GPT-4o',
+      'gemini-1.5-pro': 'Gemini',
+      'claude-3.5-sonnet': 'Claude'
+    };
+    return modelNames[modelId] || modelId;
   };
 
   const renderItemContent = (item: HistoryItem) => {

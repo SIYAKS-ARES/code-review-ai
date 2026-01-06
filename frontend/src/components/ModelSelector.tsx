@@ -1,25 +1,27 @@
 import React from 'react';
-import { EvaluationMode, ModelId, AVAILABLE_MODELS } from '../types';
+import { EvaluationMode, ModelInfo } from '../types';
 import styles from './ModelSelector.module.css';
 
 interface ModelSelectorProps {
   mode: EvaluationMode;
-  selectedModels: ModelId[];
+  selectedModels: string[];
+  availableModels: ModelInfo[];
   onModeChange: (mode: EvaluationMode) => void;
-  onModelsChange: (models: ModelId[]) => void;
+  onModelsChange: (models: string[]) => void;
 }
 
 export const ModelSelector: React.FC<ModelSelectorProps> = ({
   mode,
   selectedModels,
+  availableModels,
   onModeChange,
   onModelsChange,
 }) => {
-  const handleSingleModelChange = (modelId: ModelId) => {
+  const handleSingleModelChange = (modelId: string) => {
     onModelsChange([modelId]);
   };
 
-  const handleCompareModelToggle = (modelId: ModelId) => {
+  const handleCompareModelToggle = (modelId: string) => {
     if (selectedModels.includes(modelId)) {
       // Remove if already selected
       const newModels = selectedModels.filter((m) => m !== modelId);
@@ -44,6 +46,7 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
   };
 
   const validationMessage = getValidationMessage();
+  const activeModels = availableModels.filter(m => m.available);
 
   return (
     <div className={styles.container}>
@@ -79,12 +82,16 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
           <select
             id="single-model-select"
             className={styles.select}
-            value={selectedModels[0] || 'gpt-4o'}
-            onChange={(e) => handleSingleModelChange(e.target.value as ModelId)}
+            value={selectedModels[0] || activeModels[0]?.id || ''}
+            onChange={(e) => handleSingleModelChange(e.target.value)}
+            disabled={activeModels.length === 0}
           >
-            {AVAILABLE_MODELS.map((model) => (
+            {activeModels.length === 0 && (
+              <option value="">Aktif model bulunamadı</option>
+            )}
+            {activeModels.map((model) => (
               <option key={model.id} value={model.id}>
-                {model.label}
+                {model.name}
               </option>
             ))}
           </select>
@@ -98,14 +105,15 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
             Modeller (2-3 adet seçin)
           </label>
           <div className={styles.checkboxList}>
-            {AVAILABLE_MODELS.map((model) => {
+            {availableModels.map((model) => {
               const isSelected = selectedModels.includes(model.id);
-              const isDisabled = !isSelected && selectedModels.length >= 3;
+              const isDisabled = !model.available || (!isSelected && selectedModels.length >= 3);
 
               return (
                 <label
                   key={model.id}
                   className={`${styles.checkboxItem} ${isDisabled ? styles.checkboxDisabled : ''}`}
+                  title={!model.available ? 'Model şu anda kullanılamıyor (API key eksik)' : ''}
                 >
                   <input
                     type="checkbox"
@@ -114,7 +122,10 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
                     onChange={() => handleCompareModelToggle(model.id)}
                     disabled={isDisabled}
                   />
-                  <span className={styles.checkboxLabel}>{model.label}</span>
+                  <span className={styles.checkboxLabel}>
+                    {model.name}
+                    {!model.available && ' (Pasif)'}
+                  </span>
                 </label>
               );
             })}

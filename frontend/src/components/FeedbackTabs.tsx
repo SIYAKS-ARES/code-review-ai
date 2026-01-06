@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { EvaluationResponse, SingleEvaluationResult, CompareModeResponse, AVAILABLE_MODELS, ModelId } from '../types';
+import ReactMarkdown from 'react-markdown';
+import { EvaluationResponse, SingleEvaluationResult, CompareModeResponse } from '../types';
 import styles from './FeedbackTabs.module.css';
 
 interface FeedbackTabsProps {
   result: EvaluationResponse;
-  selectedModels?: ModelId[];
+  selectedModels?: string[];
 }
 
 export const FeedbackTabs: React.FC<FeedbackTabsProps> = ({ result, selectedModels = [] }) => {
@@ -15,8 +16,13 @@ export const FeedbackTabs: React.FC<FeedbackTabsProps> = ({ result, selectedMode
   const isCompareMode = 'mode' in result && result.mode === 'compare';
 
   const getModelLabel = (modelId: string): string => {
-    const model = AVAILABLE_MODELS.find((m) => m.id === modelId);
-    return model ? model.label : modelId;
+    // Model ID'yi olduğu gibi döndür veya güzelleştir
+    const modelNames: Record<string, string> = {
+      'gpt-4o': 'OpenAI GPT-4o',
+      'gemini-1.5-pro': 'Google Gemini 1.5 Pro',
+      'claude-3.5-sonnet': 'Anthropic Claude 3.5 Sonnet'
+    };
+    return modelNames[modelId] || modelId;
   };
 
   // Tek model modu
@@ -31,14 +37,29 @@ export const FeedbackTabs: React.FC<FeedbackTabsProps> = ({ result, selectedMode
             <p className={styles.comment}>{singleResult.comment}</p>
           </div>
 
+          <div className={styles.runtimeSection}>
+            <div className={styles.runtimeCard}>
+              <h4 className={styles.runtimeLabel}>⏱️ Mevcut Çalışma Zamanı</h4>
+              <div className={styles.runtimeValue}>{singleResult.runtime}</div>
+            </div>
+            <div className={styles.runtimeCard}>
+              <h4 className={styles.runtimeLabel}>🎯 Optimal Çalışma Zamanı</h4>
+              <div className={styles.optimalValue}>{singleResult.optimalRuntime}</div>
+            </div>
+          </div>
+
           <div className={styles.section}>
             <h3 className={styles.sectionTitle}>📝 Kodu Düzeltmek İçin Tavsiyeler</h3>
-            <pre className={styles.suggestions}>{singleResult.suggestions}</pre>
+            <div className={styles.suggestions}>
+              <ReactMarkdown>{String(singleResult.suggestions || '')}</ReactMarkdown>
+            </div>
           </div>
 
           <div className={styles.section}>
             <h3 className={styles.sectionTitle}>🎯 Yol Haritası</h3>
-            <pre className={styles.guidance}>{singleResult.guidance}</pre>
+            <div className={styles.guidance}>
+              <ReactMarkdown>{String(singleResult.guidance || '')}</ReactMarkdown>
+            </div>
           </div>
         </div>
       </div>
@@ -86,14 +107,29 @@ export const FeedbackTabs: React.FC<FeedbackTabsProps> = ({ result, selectedMode
                 <p className={styles.comment}>{compareResult.results[selectedModelId].comment}</p>
               </div>
 
+              <div className={styles.runtimeSection}>
+                <div className={styles.runtimeCard}>
+                  <h4 className={styles.runtimeLabel}>⏱️ Mevcut Çalışma Zamanı</h4>
+                  <div className={styles.runtimeValue}>{compareResult.results[selectedModelId].runtime}</div>
+                </div>
+                <div className={styles.runtimeCard}>
+                  <h4 className={styles.runtimeLabel}>🎯 Optimal Çalışma Zamanı</h4>
+                  <div className={styles.optimalValue}>{compareResult.results[selectedModelId].optimalRuntime}</div>
+                </div>
+              </div>
+
               <div className={styles.section}>
                 <h3 className={styles.sectionTitle}>📝 Kodu Düzeltmek İçin Tavsiyeler</h3>
-                <pre className={styles.suggestions}>{compareResult.results[selectedModelId].suggestions}</pre>
+                <div className={styles.suggestions}>
+                  <ReactMarkdown>{String(compareResult.results[selectedModelId].suggestions || '')}</ReactMarkdown>
+                </div>
               </div>
 
               <div className={styles.section}>
                 <h3 className={styles.sectionTitle}>🎯 Yol Haritası</h3>
-                <pre className={styles.guidance}>{compareResult.results[selectedModelId].guidance}</pre>
+                <div className={styles.guidance}>
+                  <ReactMarkdown>{String(compareResult.results[selectedModelId].guidance || '')}</ReactMarkdown>
+                </div>
               </div>
             </>
           )}

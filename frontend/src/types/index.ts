@@ -1,17 +1,11 @@
 export type Language = 'python' | 'java' | 'cpp';
 export type EvaluationMode = 'single' | 'compare';
-export type ModelId = 'gpt-4o' | 'gemini-1.5-pro' | 'claude-3.5-sonnet';
 
 export interface ModelInfo {
-  id: ModelId;
-  label: string;
+  id: string;
+  name: string;
+  available: boolean;
 }
-
-export const AVAILABLE_MODELS: ModelInfo[] = [
-  { id: 'gpt-4o', label: 'OpenAI GPT-4o' },
-  { id: 'gemini-1.5-pro', label: 'Google Gemini 1.5 Pro' },
-  { id: 'claude-3.5-sonnet', label: 'Anthropic Claude 3.5 Sonnet' },
-];
 
 export interface EvaluationRequest {
   problem: string;
@@ -24,6 +18,8 @@ export interface EvaluationRequest {
 // Basitleştirilmiş sonuç yapısı
 export interface SingleEvaluationResult {
   comment: string;           // LLM'in yorumu (ne iyi, ne kötü)
+  runtime: string;           // Kodun çalışma zamanı (O(n), O(n²) vb.)
+  optimalRuntime: string;    // Optimal çözümün çalışma zamanı
   suggestions: string;        // Kodu düzeltmek için tavsiyeler
   guidance: string;           // Yol haritası/yönlendirme
 }
