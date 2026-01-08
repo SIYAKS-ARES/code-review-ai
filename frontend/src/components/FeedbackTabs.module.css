@@ -1,0 +1,359 @@
+/* Basit ve temiz tasarım */
+.container {
+  background: white;
+  border-radius: 0.5rem;
+  border: 2px solid #e5e7eb;
+  overflow: hidden;
+}
+
+/* Tek Model Modu */
+.singleMode {
+  padding: 2rem;
+}
+
+.suggestions {
+  padding: 1.5rem;
+  background-color: #eff6ff;
+  color: #1e40af;
+  border-radius: 0.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  border-left: 4px solid #3b82f6;
+}
+
+.suggestions ul,
+.suggestions ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.suggestions li {
+  margin: 0.5rem 0;
+}
+
+.suggestions p {
+  margin: 0.75rem 0;
+}
+
+.suggestions code {
+  background-color: #dbeafe;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.suggestions pre {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.suggestions pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* Karşılaştırma Modu */
+.compareMode {
+  display: flex;
+  min-height: 600px;
+}
+
+/* Sol: Model Listesi */
+.modelList {
+  width: 300px;
+  background-color: #f9fafb;
+  border-right: 2px solid #e5e7eb;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.modelListTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.modelButton {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #d1d5db;
+  background-color: white;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.modelButton:hover {
+  border-color: #3b82f6;
+  transform: translateX(4px);
+}
+
+.modelButtonActive {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.1);
+}
+
+.modelButtonContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.modelName {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Sağ: Model Detayları */
+.modelDetails {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  max-height: 800px;
+}
+
+.detailsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.detailsTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+/* Bölümler */
+.section {
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.comment {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #4b5563;
+  margin: 0;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  border-left: 4px solid #3b82f6;
+}
+
+/* Runtime Section */
+.runtimeSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.runtimeCard {
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 0.75rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.runtimeLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.runtimeValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  font-family: 'Monaco', 'Courier New', monospace;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.optimalValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fbbf24;
+  font-family: 'Monaco', 'Courier New', monospace;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.codeBlock {
+  margin: 0;
+  padding: 1.5rem;
+  background-color: #1f2937;
+  color: #f9fafb;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.codeBlock code {
+  font-family: inherit;
+}
+
+.guidance {
+  margin: 0;
+  padding: 1.5rem;
+  background-color: #fef3c7;
+  color: #92400e;
+  border-radius: 0.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  border-left: 4px solid #f59e0b;
+}
+
+.codeBlock {
+  margin: 0;
+  padding: 1.5rem;
+  background-color: #1f2937;
+  color: #f9fafb;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.codeBlock code {
+  font-family: inherit;
+}
+
+.guidance {
+  padding: 1.5rem;
+  background-color: #fef3c7;
+  color: #92400e;
+  border-radius: 0.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  border-left: 4px solid #f59e0b;
+}
+
+.guidance ul,
+.guidance ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.guidance li {
+  margin: 0.5rem 0;
+}
+
+.guidance p {
+  margin: 0.75rem 0;
+}
+
+.guidance strong {
+  font-weight: 700;
+  color: #78350f;
+}
+
+.guidance code {
+  background-color: #fde68a;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+}
+
+.guidance pre {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.guidance pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .compareMode {
+    flex-direction: column;
+  }
+
+  .modelList {
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px solid #e5e7eb;
+  }
+
+  .modelButton:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .singleMode,
+  .modelDetails {
+    padding: 1rem;
+  }
+
+  .modelList {
+    padding: 1rem;
+  }
+
+  .runtimeSection {
+    grid-template-columns: 1fr;
+  }
+
+  .runtimeValue,
+  .optimalValue {
+    font-size: 1.5rem;
+  }
+
+  .scoreValue {
+    font-size: 2rem;
+  }
+
+  .detailsScore {
+    font-size: 1.8rem;
+  }
+
+  .codeBlock,
+  .guidance {
+    font-size: 0.85rem;
+    padding: 1rem;
+  }
+}

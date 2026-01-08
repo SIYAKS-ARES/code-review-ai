@@ -1,0 +1,45 @@
+.container {
+  border: 2px solid #e5e7eb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.header {
+  width: 100%;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.header:hover {
+  background-color: #f3f4f6;
+}
+
+.title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1f2937;
+  text-align: left;
+}
+
+.icon {
+  font-size: 0.75rem;
+  color: #6b7280;
+  transition: transform 0.2s;
+}
+
+.iconOpen {
+  transform: rotate(180deg);
+}
+
+.content {
+  padding: 1rem;
+  background-color: #ffffff;
+  border-top: 1px solid #e5e7eb;
+}
