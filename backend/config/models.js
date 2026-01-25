@@ -1,20 +1,20 @@
 // Model konfigürasyonu
 export const MODELS = [
   {
-    id: 'gpt-4o',
-    name: 'OpenAI GPT-4o',
+    id: 'ChatGPT 5.2',
+    name: 'ChatGPT 5.2',
     provider: 'openai',
     envKey: 'OPENAI_API_KEY'
   },
   {
-    id: 'gemini-2.5-flash',
-    name: 'Google Gemini 2.5 Flash',
+    id: 'Gemini 3 Pro',
+    name: 'Gemini 3 Pro',
     provider: 'google',
     envKey: 'GOOGLE_API_KEY'
   },
   {
-    id: 'claude-3.5-sonnet',
-    name: 'Anthropic Claude 3.5 Sonnet',
+    id: 'Claude 4.5 Sonnet',
+    name: 'Claude 4.5 Sonnet',
     provider: 'anthropic',
     envKey: 'ANTHROPIC_API_KEY'
   }

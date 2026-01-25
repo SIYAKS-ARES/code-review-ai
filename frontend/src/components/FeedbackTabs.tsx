@@ -18,9 +18,9 @@ export const FeedbackTabs: React.FC<FeedbackTabsProps> = ({ result, selectedMode
   const getModelLabel = (modelId: string): string => {
     // Model ID'yi olduğu gibi döndür veya güzelleştir
     const modelNames: Record<string, string> = {
-      'gpt-4o': 'OpenAI GPT-4o',
-      'gemini-1.5-pro': 'Google Gemini 1.5 Pro',
-      'claude-3.5-sonnet': 'Anthropic Claude 3.5 Sonnet'
+      'ChatGPT 5.2': 'ChatGPT 5.2',
+      'Gemini 3 Pro': 'Gemini 3 Pro',
+      'Claude 4.5 Sonnet': 'Claude 4.5 Sonnet'
     };
     return modelNames[modelId] || modelId;
   };
