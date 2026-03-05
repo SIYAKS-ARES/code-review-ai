@@ -1,52 +1,52 @@
-# LLM Tabanlı Kod Değerlendirme Sistemi - Frontend
+# LLM-Based Code Evaluation System - Frontend
 
-## Kurulum
+## Installation
 
 ```bash
 npm install
 ```
 
-## Geliştirme Ortamında Çalıştırma
+## Running in Development
 
 ```bash
 npm run dev
 ```
 
-Tarayıcınızda `http://localhost:3000` adresini açın.
+Open `http://localhost:3000` in your browser.
 
-## Üretim İçin Build
+## Build for Production
 
 ```bash
 npm run build
 ```
 
-## API URL Değiştirme
+## Changing the API URL
 
-Backend API adresinizi değiştirmek için:
+To change the backend API address:
 
-1. **Geliştirme ortamında**: `vite.config.ts` dosyasındaki proxy ayarlarını düzenleyin:
+1. **In development**: update the proxy settings in `vite.config.ts`:
    ```typescript
    proxy: {
      '/api': {
-       target: 'http://localhost:8000', // Burayı değiştirin
+      target: 'http://localhost:8000', // Change this
        changeOrigin: true,
      }
    }
    ```
 
-2. **Üretim ortamında**: `src/api/client.ts` dosyasındaki `API_BASE_URL` sabitini değiştirin.
+2. **In production**: change the `API_BASE_URL` constant in `src/api/client.ts`.
 
-## Özellikler
+## Features
 
-- ✅ Problem tanımı ve kod girişi
-- ✅ Python, Java, C++ dil desteği
-- ✅ Detaylı geri bildirim (puan, sorunlar, Sokratik ipuçları)
-- ✅ Değerlendirme geçmişi (son 10 kayıt)
-- ✅ LocalStorage ile kalıcılık
-- ✅ Responsive tasarım
-- ✅ Tamamen Türkçe arayüz
+- ✅ Problem description and code input
+- ✅ Python, Java, C++ language support
+- ✅ Detailed feedback (issues, Socratic hints)
+- ✅ Evaluation history (last 10 records)
+- ✅ Persistence via LocalStorage
+- ✅ Responsive design
+- ✅ Fully English UI
 
-## Teknolojiler
+## Technologies
 
 - React 18
 - TypeScript

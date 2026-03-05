@@ -14,7 +14,7 @@ export class ApiError extends Error {
   }
 }
 
-// Backend'den mevcut modelleri al
+// Fetch available models from the backend
 export async function getAvailableModels(): Promise<ModelInfo[]> {
   try {
     const response = await fetch(`${API_BASE_URL}/api/models`, {
@@ -26,7 +26,7 @@ export async function getAvailableModels(): Promise<ModelInfo[]> {
 
     if (!response.ok) {
       throw new ApiError(
-        'Modeller yüklenemedi',
+        'Failed to load models',
         response.status
       );
     }
@@ -37,7 +37,7 @@ export async function getAvailableModels(): Promise<ModelInfo[]> {
     if (error instanceof ApiError) {
       throw error;
     }
-    throw new ApiError('Model listesi alınırken bir hata oluştu');
+    throw new ApiError('An error occurred while fetching the model list');
   }
 }
 
@@ -55,7 +55,7 @@ export async function evaluateCode(
     });
 
     if (!response.ok) {
-      let errorMessage = 'Sunucu hatası';
+      let errorMessage = 'Server error';
       try {
         const errorData = await response.json();
         errorMessage = errorData.message || errorData.error || errorMessage;
@@ -71,7 +71,7 @@ export async function evaluateCode(
     if (request.mode === 'compare') {
       const compareData = data as CompareModeResponse;
       if (compareData.mode !== 'compare' || !compareData.results) {
-        throw new ApiError('Geçersiz yanıt formatı: karşılaştırma sonuçları eksik');
+        throw new ApiError('Invalid response format: comparison results are missing');
       }
     }
 
@@ -84,10 +84,10 @@ export async function evaluateCode(
     // Network errors or other exceptions
     if (error instanceof TypeError) {
       throw new ApiError(
-        'Bağlantı hatası. Lütfen internet bağlantınızı kontrol edin.'
+        'Connection error. Please check your internet connection.'
       );
     }
 
-    throw new ApiError('Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.');
+    throw new ApiError('An unexpected error occurred. Please try again.');
   }
 }

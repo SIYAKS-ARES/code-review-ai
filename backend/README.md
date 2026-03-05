@@ -2,25 +2,25 @@
 
 Backend API for LLM-based code evaluation system.
 
-## Kurulum
+## Installation
 
 ```bash
-# Bağımlılıkları yükle
+# Install dependencies
 npm install
 
-# .env dosyası oluştur
+# Create .env file
 cp .env.example .env
 
-# .env dosyasına API key'leri ekle
+# Add API keys to .env
 ```
 
-## API Key'leri Alma
+## Getting API Keys
 
 1. **OpenAI**: https://platform.openai.com/api-keys
 2. **Google AI (Gemini)**: https://makersuite.google.com/app/apikey
 3. **Anthropic (Claude)**: https://console.anthropic.com/
 
-## Çalıştırma
+## Running
 
 ```bash
 # Development mode (auto-reload)
@@ -30,24 +30,24 @@ npm run dev
 npm start
 ```
 
-Server şu adreste çalışacak: `http://localhost:8000`
+The server will run at: `http://localhost:8000`
 
 ## API Endpoints
 
 ### GET /api/health
-Sunucu durumunu kontrol et
+Check server health
 
 ### GET /api/models
-Mevcut modelleri ve kullanılabilirlik durumlarını listele
+List available models and their availability
 
 ### POST /api/evaluate
-Kod değerlendirmesi yap
+Run code evaluation
 
 **Request Body:**
 ```json
 {
-  "problem": "Problem açıklaması",
-  "code": "Değerlendirilecek kod",
+  "problem": "Problem description",
+  "code": "Code to be evaluated",
   "language": "python|java|cpp",
   "mode": "single|compare",
   "models": ["gpt-4o", "gemini-1.5-pro"]
@@ -57,9 +57,9 @@ Kod değerlendirmesi yap
 **Response (Single Mode):**
 ```json
 {
-  "comment": "Kod değerlendirmesi",
-  "suggestions": "İyileştirme önerileri",
-  "guidance": "Adım adım yol haritası"
+  "comment": "Code review summary",
+  "suggestions": "Improvement suggestions",
+  "guidance": "Step-by-step roadmap"
 }
 ```
 

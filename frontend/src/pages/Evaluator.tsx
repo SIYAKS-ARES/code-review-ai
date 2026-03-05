@@ -10,48 +10,48 @@ import { Language, EvaluationResponse, HistoryItem, EvaluationMode, ModelInfo } 
 import { saveToHistory, getHistory, saveLastInput, getLastInput, clearHistory } from '../utils/storage';
 import styles from './Evaluator.module.css';
 
-const EXAMPLE_PROBLEM = `Bir dizi içindeki tekrar eden ilk sayıyı bulun.
+const EXAMPLE_PROBLEM = `Find the first recurring number in an array.
 
-Girdi: Pozitif tam sayılardan oluşan bir dizi
-Çıktı: İlk tekrar eden sayı, yoksa -1
+Input: An array of positive integers
+Output: The first recurring number, or -1 if none exists
 
-Örnek:
-Girdi: [2, 5, 1, 2, 3, 5, 1, 2, 4]
-Çıktı: 2
+Example:
+Input: [2, 5, 1, 2, 3, 5, 1, 2, 4]
+Output: 2
 
-Kısıtlar:
-- Dizi uzunluğu: 1 ≤ n ≤ 10^5
-- Sayı aralığı: 1 ≤ arr[i] ≤ 10^6`;
+Constraints:
+- Array length: 1 ≤ n ≤ 10^5
+- Number range: 1 ≤ arr[i] ≤ 10^6`;
 
-const EXAMPLE_CODE_PYTHON = `def ilk_tekrar(dizi):
-    gorulen = set()
-    for sayi in dizi:
-        if sayi in gorulen:
-            return sayi
-        gorulen.add(sayi)
-    return -1
+const EXAMPLE_CODE_PYTHON = `def first_recurring(arr):
+  seen = set()
+  for num in arr:
+    if num in seen:
+      return num
+    seen.add(num)
+  return -1
 
 # Test
-print(ilk_tekrar([2, 5, 1, 2, 3, 5, 1, 2, 4]))`;
+print(first_recurring([2, 5, 1, 2, 3, 5, 1, 2, 4]))`;
 
 const EXAMPLE_CODE_JAVA = `import java.util.*;
 
 public class Solution {
-    public static int ilkTekrar(int[] dizi) {
-        Set<Integer> gorulen = new HashSet<>();
-        for (int sayi : dizi) {
-            if (gorulen.contains(sayi)) {
-                return sayi;
-            }
-            gorulen.add(sayi);
-        }
-        return -1;
+  public static int firstRecurring(int[] arr) {
+    Set<Integer> seen = new HashSet<>();
+    for (int num : arr) {
+      if (seen.contains(num)) {
+        return num;
+      }
+      seen.add(num);
     }
+    return -1;
+  }
     
-    public static void main(String[] args) {
-        int[] dizi = {2, 5, 1, 2, 3, 5, 1, 2, 4};
-        System.out.println(ilkTekrar(dizi));
-    }
+  public static void main(String[] args) {
+    int[] arr = {2, 5, 1, 2, 3, 5, 1, 2, 4};
+    System.out.println(firstRecurring(arr));
+  }
 }`;
 
 const EXAMPLE_CODE_CPP = `#include <iostream>
@@ -59,21 +59,21 @@ const EXAMPLE_CODE_CPP = `#include <iostream>
 #include <vector>
 using namespace std;
 
-int ilkTekrar(vector<int>& dizi) {
-    unordered_set<int> gorulen;
-    for (int sayi : dizi) {
-        if (gorulen.count(sayi)) {
-            return sayi;
-        }
-        gorulen.insert(sayi);
+int firstRecurring(const vector<int>& arr) {
+  unordered_set<int> seen;
+  for (int num : arr) {
+    if (seen.count(num)) {
+      return num;
     }
-    return -1;
+    seen.insert(num);
+  }
+  return -1;
 }
 
 int main() {
-    vector<int> dizi = {2, 5, 1, 2, 3, 5, 1, 2, 4};
-    cout << ilkTekrar(dizi) << endl;
-    return 0;
+  vector<int> arr = {2, 5, 1, 2, 3, 5, 1, 2, 4};
+  cout << firstRecurring(arr) << endl;
+  return 0;
 }`;
 
 export const Evaluator: React.FC = () => {
@@ -111,8 +111,8 @@ export const Evaluator: React.FC = () => {
           setEvaluationMode('single');
         }
       } catch (err) {
-        console.error('Model yüklenemedi:', err);
-        setError('Backend sunucusuna bağlanılamadı. Lütfen backend\'in çalıştığından emin olun.');
+        console.error('Failed to load models:', err);
+        setError('Cannot connect to the backend server. Please make sure the backend is running.');
       }
     };
     
@@ -165,15 +165,15 @@ export const Evaluator: React.FC = () => {
     };
 
     if (!problem.trim()) {
-      errors.problem = 'Problem tanımı zorunludur';
+      errors.problem = 'Problem description is required';
     }
 
     if (!code.trim()) {
-      errors.code = 'Kod zorunludur';
+      errors.code = 'Code is required';
     }
 
     if (evaluationMode === 'compare' && selectedModels.length < 2) {
-      errors.models = 'Karşılaştırma modu için en az 2 model seçmelisiniz';
+      errors.models = 'Comparison mode requires at least 2 models';
     }
 
     setValidationErrors(errors);
@@ -218,7 +218,7 @@ export const Evaluator: React.FC = () => {
       if (err instanceof ApiError) {
         setError(err.message);
       } else {
-        setError('Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.');
+        setError('An unexpected error occurred. Please try again.');
       }
     } finally {
       setLoading(false);
@@ -265,7 +265,7 @@ export const Evaluator: React.FC = () => {
   };
 
   const handleClearHistory = () => {
-    if (confirm('Tüm geçmişi silmek istediğinizden emin misiniz?')) {
+    if (confirm('Are you sure you want to clear all history?')) {
       clearHistory();
       setHistory([]);
     }
@@ -279,7 +279,7 @@ export const Evaluator: React.FC = () => {
       <div className={styles.mainContent}>
         <div className={styles.inputSection}>
           <div className={styles.card}>
-            <h2 className={styles.cardTitle}>LLM Karşılaştırma Arayüzü (Araştırma)</h2>
+            <h2 className={styles.cardTitle}>LLM Comparison Interface (Research)</h2>
             
             <ProblemInput
               value={problem}
@@ -314,13 +314,13 @@ export const Evaluator: React.FC = () => {
                 onClick={handleEvaluate}
                 disabled={isEvaluateDisabled}
               >
-                {loading ? 'Değerlendiriliyor…' : 'Değerlendir'}
+                {loading ? 'Evaluating…' : 'Evaluate'}
               </button>
               <button className={styles.btnSecondary} onClick={handleClear}>
-                Temizle
+                Clear
               </button>
               <button className={styles.btnSecondary} onClick={handleLoadExample}>
-                Örnek Yükle
+                Load Example
               </button>
             </div>
 
@@ -332,7 +332,7 @@ export const Evaluator: React.FC = () => {
                   onClick={handleEvaluate}
                   disabled={isEvaluateDisabled}
                 >
-                  Tekrar Dene
+                  Try Again
                 </button>
               </div>
             )}
@@ -347,11 +347,11 @@ export const Evaluator: React.FC = () => {
               <div className={styles.placeholderContent}>
                 <span className={styles.placeholderIcon}>📊</span>
                 <h3 className={styles.placeholderTitle}>
-                  Değerlendirme Sonuçları
+                  Evaluation Results
                 </h3>
                 <p className={styles.placeholderText}>
-                  Sol taraftan problem ve kod girerek "Değerlendir" butonuna basın.
-                  Sonuçlar burada görüntülenecek.
+                  Enter the problem and code on the left and click "Evaluate".
+                  The results will appear here.
                 </p>
               </div>
             </div>

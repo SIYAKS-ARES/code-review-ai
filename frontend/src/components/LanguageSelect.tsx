@@ -14,7 +14,7 @@ export const LanguageSelect: React.FC<LanguageSelectProps> = ({
   return (
     <div className={styles.container}>
       <label htmlFor="language-select" className={styles.label}>
-        Kod Dili *
+        Programming Language *
       </label>
       <select
         id="language-select"

@@ -26,10 +26,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   return (
     <div className={styles.container}>
       <label htmlFor="code-editor" className={styles.label}>
-        Aday Kaynak Kod *
+        Candidate Source Code *
       </label>
       <p className={styles.helper}>
-        Derleniyor olması yetmez; mantıksal doğruluk analiz edilecek.
+        Compiling is not enough; logical correctness will be analyzed.
       </p>
       <div className={styles.editorWrapper}>
         <textarea
@@ -37,7 +37,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           className={`${styles.codeArea} ${error ? styles.error : ''}`}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="Örn: Python/Java/C++ çözüm kodunu buraya yapıştırın…"
+          placeholder="E.g., paste your Python/Java/C++ solution here…"
           spellCheck={false}
           data-language={language}
         />

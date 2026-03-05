@@ -1,11 +1,11 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Lazy initialization - sadece API key varsa
+// Lazy initialization - only if API key is present
 let genAI = null;
 
 function getGeminiClient() {
   if (!process.env.GOOGLE_API_KEY) {
-    throw new Error('Google API key tanımlı değil');
+    throw new Error('Google API key is not defined');
   }
   if (!genAI) {
     genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
@@ -13,28 +13,28 @@ function getGeminiClient() {
   return genAI;
 }
 
-const SYSTEM_PROMPT = `Sen bir kod değerlendirme asistanısın. Öğrencilerin kodlarını incelersin ve yapıcı geri bildirimler verirsin.
+const SYSTEM_PROMPT = `You are a code evaluation assistant. You review students' code and provide constructive feedback.
 
-Görevin:
-1. Kodun güçlü ve zayıf yönlerini belirt
-2. Kodun çalışma zamanı karmaşıklığını (time complexity) analiz et
-3. Problem için optimal çözümün çalışma zamanını belirt
-4. Somut iyileştirme önerileri sun
-5. Öğrenci için adım adım yol haritası oluştur
+Your tasks:
+1. Explain the strengths and weaknesses of the code
+2. Analyze the time complexity of the current solution
+3. State the optimal time complexity for this problem
+4. Provide concrete suggestions to improve the code
+5. Provide a step-by-step roadmap for the student
 
-MUTLAKA JSON formatında cevap ver:
+You MUST always respond in JSON format:
 {
-  "comment": "Kodun genel değerlendirmesi (ne iyi, ne kötü)",
-  "runtime": "Mevcut kodun çalışma zamanı (örn: O(n), O(n²), O(log n))",
-  "optimalRuntime": "Bu problem için optimal çalışma zamanı (örn: O(n), O(n log n))",
-  "suggestions": "Madde madde iyileştirme önerileri (• ile başlat)",
-  "guidance": "Numaralandırılmış adım adım yol haritası (1., 2., 3. ...)"
+  "comment": "Overall evaluation of the code (what is good, what is problematic)",
+  "runtime": "Runtime complexity of the current code (e.g., O(n), O(n²), O(log n))",
+  "optimalRuntime": "Optimal runtime complexity for this problem (e.g., O(n), O(n log n))",
+  "suggestions": "Bullet-point suggestions to improve the code (start items with •)",
+  "guidance": "A numbered step-by-step roadmap for the student (1., 2., 3. ...)"
 }`;
 
 export async function evaluateWithGemini(problem, code, language) {
   try {
-    console.log('🔍 Gemini evaluation başlatılıyor...');
-    console.log('API Key mevcut:', !!process.env.GOOGLE_API_KEY);
+    console.log('🔍 Starting Gemini evaluation...');
+    console.log('API Key present:', !!process.env.GOOGLE_API_KEY);
     console.log('API Key prefix:', process.env.GOOGLE_API_KEY?.substring(0, 10) + '...');
     
     const client = getGeminiClient();
@@ -47,15 +47,15 @@ export async function evaluateWithGemini(problem, code, language) {
 
     const prompt = `${SYSTEM_PROMPT}
 
-Programlama Dili: ${language}
+  Programming Language: ${language}
 
-Problem:
-${problem}
+  Problem:
+  ${problem}
 
-Öğrencinin Kodu:
-${code}
+  Student's Code:
+  ${code}
 
-Lütfen bu kodu değerlendir ve SADECE JSON formatında geri bildirim ver. Başka hiçbir açıklama ekleme.`;
+  Please evaluate this code and return feedback ONLY in JSON format. Do not add any other explanation.`;
 
     const result = await model.generateContent(prompt);
     const response = result.response.text();
@@ -112,11 +112,10 @@ Lütfen bu kodu değerlendir ve SADECE JSON formatında geri bildirim ver. Başk
     console.error('Error message:', error.message);
     console.error('Error cause:', error.cause);
     
-    // Daha detaylı hata mesajı
     if (error.message?.includes('fetch failed')) {
-      throw new Error('Gemini API bağlantı hatası. İnternet bağlantınızı veya proxy ayarlarınızı kontrol edin.');
+      throw new Error('Gemini API connection error. Please check your internet or proxy settings.');
     }
     
-    throw new Error(`Gemini API hatası: ${error.message || 'Bilinmeyen hata'}`);
+    throw new Error(`Gemini API error: ${error.message || 'Unknown error'}`);
   }
 }

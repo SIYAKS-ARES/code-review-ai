@@ -14,8 +14,8 @@ router.post('/evaluate', async (req, res) => {
     // Validation
     if (!problem || !code || !language || !models || models.length === 0) {
       return res.status(400).json({
-        error: 'Eksik parametreler',
-        message: 'problem, code, language ve models gereklidir'
+        error: 'Missing parameters',
+        message: 'problem, code, language and models are required'
       });
     }
 
@@ -30,15 +30,15 @@ router.post('/evaluate', async (req, res) => {
     if (mode === 'compare') {
       const results = {};
       
-      // Tüm modelleri paralel çalıştır
+      // Run all models in parallel
       const promises = models.map(async (modelId) => {
         try {
           results[modelId] = await evaluateWithModel(modelId, problem, code, language);
         } catch (error) {
           results[modelId] = {
-            comment: 'Model çalıştırılamadı',
+            comment: 'The model could not be executed',
             suggestions: error.message,
-            guidance: 'API key kontrolü yapın'
+            guidance: 'Please check your API key configuration.'
           };
         }
       });
@@ -51,12 +51,12 @@ router.post('/evaluate', async (req, res) => {
       });
     }
 
-    return res.status(400).json({ error: 'Geçersiz mode' });
+    return res.status(400).json({ error: 'Invalid mode' });
 
   } catch (error) {
     console.error('Evaluate error:', error);
     res.status(500).json({
-      error: 'Değerlendirme hatası',
+      error: 'Evaluation error',
       message: error.message
     });
   }
@@ -67,11 +67,11 @@ async function evaluateWithModel(modelId, problem, code, language) {
   const config = getModelConfig(modelId);
   
   if (!config) {
-    throw new Error(`Model bulunamadı: ${modelId}`);
+    throw new Error(`Model not found: ${modelId}`);
   }
 
   if (!process.env[config.envKey]) {
-    throw new Error(`${config.name} için API key tanımlı değil`);
+    throw new Error(`API key is not defined for ${config.name}`);
   }
 
   switch (config.provider) {
@@ -82,7 +82,7 @@ async function evaluateWithModel(modelId, problem, code, language) {
     case 'anthropic':
       return await evaluateWithClaude(problem, code, language);
     default:
-      throw new Error(`Desteklenmeyen provider: ${config.provider}`);
+      throw new Error(`Unsupported provider: ${config.provider}`);
   }
 }
 

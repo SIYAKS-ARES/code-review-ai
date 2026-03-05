@@ -15,7 +15,7 @@ export const HistoryPanel: React.FC<HistoryPanelProps> = ({
   onClearHistory,
 }) => {
   const getModelLabel = (modelId: string): string => {
-    // Model ID'den kısa isim çıkar
+    // Map model IDs to short display names
     const modelNames: Record<string, string> = {
       'gpt-4o': 'GPT-4o',
       'gemini-1.5-pro': 'Gemini',
@@ -31,13 +31,13 @@ export const HistoryPanel: React.FC<HistoryPanelProps> = ({
       return (
         <>
           <div className={styles.itemHeader}>
-            <span className={styles.compareLabel}>Karşılaştırma</span>
+            <span className={styles.compareLabel}>Comparison</span>
             <span className={styles.language}>
               {getLanguageLabel(item.language)}
             </span>
           </div>
           <p className={styles.verdict}>
-            {item.models.map(getModelLabel).join(', ')} karşılaştırıldı
+            {item.models.map(getModelLabel).join(', ')} compared
           </p>
         </>
       );
@@ -66,12 +66,12 @@ export const HistoryPanel: React.FC<HistoryPanelProps> = ({
     return (
       <div className={styles.container}>
         <div className={styles.header}>
-          <h3 className={styles.title}>Geçmiş</h3>
+          <h3 className={styles.title}>History</h3>
         </div>
         <div className={styles.emptyState}>
-          <p>Henüz değerlendirme yapılmadı.</p>
+          <p>No evaluations yet.</p>
           <p className={styles.emptyHint}>
-            İlk değerlendirmeniz otomatik olarak burada görünecek.
+            Your first evaluation will automatically appear here.
           </p>
         </div>
       </div>
@@ -81,13 +81,13 @@ export const HistoryPanel: React.FC<HistoryPanelProps> = ({
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h3 className={styles.title}>Geçmiş ({items.length})</h3>
+        <h3 className={styles.title}>History ({items.length})</h3>
         <button
           className={styles.clearButton}
           onClick={onClearHistory}
-          title="Geçmişi Temizle"
+          title="Clear History"
         >
-          Temizle
+          Clear
         </button>
       </div>
       <div className={styles.list}>

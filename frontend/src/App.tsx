@@ -12,20 +12,20 @@ const Navigation: React.FC = () => {
       <div className={styles.navContent}>
         <div className={styles.navBrand}>
           <span className={styles.navIcon}>🎓</span>
-          <span className={styles.navTitle}>Kod Değerlendirme Sistemi</span>
+          <span className={styles.navTitle}>Code Evaluation System</span>
         </div>
         <div className={styles.navLinks}>
           <Link
             to="/"
             className={`${styles.navLink} ${location.pathname === '/' ? styles.navLinkActive : ''}`}
           >
-            Değerlendirici
+            Evaluator
           </Link>
           <Link
-            to="/hakkinda"
-            className={`${styles.navLink} ${location.pathname === '/hakkinda' ? styles.navLinkActive : ''}`}
+            to="/about"
+            className={`${styles.navLink} ${location.pathname === '/about' ? styles.navLinkActive : ''}`}
           >
-            Hakkında
+            About
           </Link>
         </div>
       </div>
@@ -41,7 +41,7 @@ function App() {
         <main className={styles.main}>
           <Routes>
             <Route path="/" element={<Evaluator />} />
-            <Route path="/hakkinda" element={<About />} />
+            <Route path="/about" element={<About />} />
           </Routes>
         </main>
       </div>

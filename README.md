@@ -1,51 +1,51 @@
 # Code Review AI
 
-Büyük dil modellerini (LLM) kullanarak kod gözden geçirme süreçlerinin otomasyonunu amaçlayan bir araştırma projesi.
+A research project that aims to explore the automation of code review processes using Large Language Models (LLMs).
 
-## Proje Amacı
+## Project Goal
 
-Bu proje, kod inceleme süreçlerinde yapay zeka kullanımının etkinliğini değerlendirmeyi amaçlamaktadır. Özellikle:
+This project evaluates the effectiveness of using AI in code review workflows. In particular, it focuses on:
 
-- LLM'lerin kod analiz yeteneklerinin incelenmesi
-- Geleneksel statik analiz araçlarıyla karşılaştırma
-- İnsan değerlendirmeleriyle benzerliklerin analizi
+- Investigating the code analysis capabilities of LLMs
+- Comparing LLMs with traditional static analysis tools
+- Analyzing similarities between human reviews and LLM feedback
 
-## Araştırma Yöntemi
+## Research Methodology
 
-### Veri Toplama
+### Data Collection
 
-- GitHub'dan seçilmiş, detaylı insan yorumları içeren Pull Request örnekleri
-- Farklı programlama dilleri ve proje türlerini kapsayan çeşitli örnekler
+- Pull Request examples from GitHub that contain detailed human review comments
+- A diverse set of repositories covering different programming languages and project types
 
-### Analiz Araçları
+### Analysis Tools
 
-1. **LLM Değerlendirmesi**
+1. **LLM-Based Evaluation**
 
-   - GPT-4 veya benzer modeller kullanılarak kod analizi
-   - Hata tespiti, performans sorunları ve best practice kontrolleri
-2. **Statik Analiz**
+   - Code analysis using GPT-4 or similar models
+   - Detection of bugs, performance issues, and best-practice violations
+2. **Static Analysis**
 
    - SonarLint
    - PMD
    - Checkstyle
 
-### Değerlendirme Metrikleri
+### Evaluation Metrics
 
-- Bulunan hata türleri (mantıksal, stil, güvenlik)
-- Bulgular arası örtüşme oranı
-- LLM-İnsan yorumu benzerlik oranı
-- Yanlış pozitif oranları
+- Types of issues found (logical, style, security)
+- Overlap between findings from different tools
+- Similarity between LLM feedback and human reviews
+- False positive rates
 
-## Beklenen Çıktılar
+## Expected Outcomes
 
-- LLM'lerin kod inceleme kapasitesinin detaylı analizi
-- Geleneksel araçlarla karşılaştırmalı performans değerlendirmesi
-- Kod gözden geçirme süreçlerinin otomasyonu için öneriler ve best practice'ler
+- A detailed analysis of the code review capability of LLMs
+- Comparative performance evaluation against traditional tools
+- Recommendations and best practices for automating code review processes
 
-## Araştırma Sonuçları
+## Research Results
 
-(Bu bölüm araştırma tamamlandıkça güncellenecektir)
+(This section will be updated as the research progresses.)
 
-## Lisans
+## License
 
-Bu proje [MIT](LICENSE) lisansı altında lisanslanmıştır.
+This project is licensed under the [MIT](LICENSE) license.

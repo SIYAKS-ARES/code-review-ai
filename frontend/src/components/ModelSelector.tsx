@@ -39,7 +39,7 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
   const getValidationMessage = (): string | null => {
     if (mode === 'compare') {
       if (selectedModels.length < 2) {
-        return 'En az 2 model seçmelisiniz';
+        return 'Please select at least 2 models';
       }
     }
     return null;
@@ -50,25 +50,25 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
 
   return (
     <div className={styles.container}>
-      <label className={styles.mainLabel}>Model Seçimi</label>
+      <label className={styles.mainLabel}>Model Selection</label>
 
       {/* Mode Selector */}
       <div className={styles.modeSelector}>
-        <label className={styles.modeLabel}>Değerlendirme Modu</label>
+        <label className={styles.modeLabel}>Evaluation Mode</label>
         <div className={styles.segmentedControl}>
           <button
             type="button"
             className={`${styles.segment} ${mode === 'single' ? styles.segmentActive : ''}`}
             onClick={() => onModeChange('single')}
           >
-            Tek Model
+            Single Model
           </button>
           <button
             type="button"
             className={`${styles.segment} ${mode === 'compare' ? styles.segmentActive : ''}`}
             onClick={() => onModeChange('compare')}
           >
-            Karşılaştır (Yan Yana)
+            Compare (Side by Side)
           </button>
         </div>
       </div>
@@ -87,7 +87,7 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
             disabled={activeModels.length === 0}
           >
             {activeModels.length === 0 && (
-              <option value="">Aktif model bulunamadı</option>
+              <option value="">No active model found</option>
             )}
             {activeModels.map((model) => (
               <option key={model.id} value={model.id}>
@@ -102,7 +102,7 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
       {mode === 'compare' && (
         <div className={styles.compareMode}>
           <label className={styles.label}>
-            Modeller (2-3 adet seçin)
+            Models (select 2-3)
           </label>
           <div className={styles.checkboxList}>
             {availableModels.map((model) => {
@@ -113,7 +113,7 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
                 <label
                   key={model.id}
                   className={`${styles.checkboxItem} ${isDisabled ? styles.checkboxDisabled : ''}`}
-                  title={!model.available ? 'Model şu anda kullanılamıyor (API key eksik)' : ''}
+                  title={!model.available ? 'Model is currently unavailable (missing API key)' : ''}
                 >
                   <input
                     type="checkbox"
@@ -124,7 +124,7 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
                   />
                   <span className={styles.checkboxLabel}>
                     {model.name}
-                    {!model.available && ' (Pasif)'}
+                    {!model.available && ' (Inactive)'}
                   </span>
                 </label>
               );

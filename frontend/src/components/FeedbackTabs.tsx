@@ -33,30 +33,30 @@ export const FeedbackTabs: React.FC<FeedbackTabsProps> = ({ result, selectedMode
       <div className={styles.container}>
         <div className={styles.singleMode}>
           <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>💬 Yorum</h3>
+            <h3 className={styles.sectionTitle}>💬 Comment</h3>
             <p className={styles.comment}>{singleResult.comment}</p>
           </div>
 
           <div className={styles.runtimeSection}>
             <div className={styles.runtimeCard}>
-              <h4 className={styles.runtimeLabel}>⏱️ Mevcut Çalışma Zamanı</h4>
+              <h4 className={styles.runtimeLabel}>⏱️ Current Runtime</h4>
               <div className={styles.runtimeValue}>{singleResult.runtime}</div>
             </div>
             <div className={styles.runtimeCard}>
-              <h4 className={styles.runtimeLabel}>🎯 Optimal Çalışma Zamanı</h4>
+              <h4 className={styles.runtimeLabel}>🎯 Optimal Runtime</h4>
               <div className={styles.optimalValue}>{singleResult.optimalRuntime}</div>
             </div>
           </div>
 
           <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>📝 Kodu Düzeltmek İçin Tavsiyeler</h3>
+            <h3 className={styles.sectionTitle}>📝 Suggestions to Improve the Code</h3>
             <div className={styles.suggestions}>
               <ReactMarkdown>{String(singleResult.suggestions || '')}</ReactMarkdown>
             </div>
           </div>
 
           <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>🎯 Yol Haritası</h3>
+            <h3 className={styles.sectionTitle}>🎯 Roadmap</h3>
             <div className={styles.guidance}>
               <ReactMarkdown>{String(singleResult.guidance || '')}</ReactMarkdown>
             </div>
@@ -74,7 +74,7 @@ export const FeedbackTabs: React.FC<FeedbackTabsProps> = ({ result, selectedMode
       <div className={styles.compareMode}>
         {/* Sol: Model Listesi */}
         <div className={styles.modelList}>
-          <h3 className={styles.modelListTitle}>Modeller</h3>
+          <h3 className={styles.modelListTitle}>Models</h3>
           {selectedModels.map(modelId => {
             const isSelected = modelId === selectedModelId;
             
@@ -103,30 +103,30 @@ export const FeedbackTabs: React.FC<FeedbackTabsProps> = ({ result, selectedMode
               </div>
 
               <div className={styles.section}>
-                <h3 className={styles.sectionTitle}>💬 Yorum</h3>
+                <h3 className={styles.sectionTitle}>💬 Comment</h3>
                 <p className={styles.comment}>{compareResult.results[selectedModelId].comment}</p>
               </div>
 
               <div className={styles.runtimeSection}>
                 <div className={styles.runtimeCard}>
-                  <h4 className={styles.runtimeLabel}>⏱️ Mevcut Çalışma Zamanı</h4>
+                  <h4 className={styles.runtimeLabel}>⏱️ Current Runtime</h4>
                   <div className={styles.runtimeValue}>{compareResult.results[selectedModelId].runtime}</div>
                 </div>
                 <div className={styles.runtimeCard}>
-                  <h4 className={styles.runtimeLabel}>🎯 Optimal Çalışma Zamanı</h4>
+                  <h4 className={styles.runtimeLabel}>🎯 Optimal Runtime</h4>
                   <div className={styles.optimalValue}>{compareResult.results[selectedModelId].optimalRuntime}</div>
                 </div>
               </div>
 
               <div className={styles.section}>
-                <h3 className={styles.sectionTitle}>📝 Kodu Düzeltmek İçin Tavsiyeler</h3>
+                <h3 className={styles.sectionTitle}>📝 Suggestions to Improve the Code</h3>
                 <div className={styles.suggestions}>
                   <ReactMarkdown>{String(compareResult.results[selectedModelId].suggestions || '')}</ReactMarkdown>
                 </div>
               </div>
 
               <div className={styles.section}>
-                <h3 className={styles.sectionTitle}>🎯 Yol Haritası</h3>
+                <h3 className={styles.sectionTitle}>🎯 Roadmap</h3>
                 <div className={styles.guidance}>
                   <ReactMarkdown>{String(compareResult.results[selectedModelId].guidance || '')}</ReactMarkdown>
                 </div>

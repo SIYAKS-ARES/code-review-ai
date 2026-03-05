@@ -66,9 +66,9 @@ app.listen(PORT, () => {
   
   // Show available models
   const models = getAvailableModels();
-  console.log('📋 Model Durumu:\n');
+  console.log('📋 Model Status:\n');
   models.forEach(model => {
-    const status = model.available ? '✅ AKTİF' : '❌ PASİF';
+    const status = model.available ? '✅ ACTIVE' : '❌ INACTIVE';
     const apiKey = model.available ? 'API Key: ✓' : 'API Key: ✗';
     console.log(`   ${status} ${model.name}`);
     console.log(`      ${apiKey}\n`);
